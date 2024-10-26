@@ -3,6 +3,7 @@
 from flask import Flask, jsonify, request
 from modules.gemini_interface import make_summary, make_script, pdf_to_text, generate_initial_image
 from modules.runway_interface import generate_video
+import asyncio
 
 app = Flask(__name__)
 

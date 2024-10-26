@@ -23,6 +23,5 @@ for image in result.images:
 # <vertexai.preview.vision_models.GeneratedImage object at 0x78f33953c2b0>
 # <vertexai.preview.vision_models.GeneratedImage object at 0x78f33953c280>
 
-for image in result.images:
-  # Open and display the image using your local operating system.
-  image._pil_image.show()
+# save the image to the data folder
+image_path = os.path.join("data", "initial_image.jpg")
