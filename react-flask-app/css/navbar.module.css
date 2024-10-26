@@ -1,10 +1,14 @@
 .header {
+  position: sticky; /* Make the navbar sticky */
+  top: 20px; /* Stick to the top of the viewport */
+  z-index: 1000;
   height: rem(56px);
   margin-bottom: rem(40px);
   background-color: var(--mantine-color-body);
   border-bottom: rem(1px) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   border-radius: 30px;
+  margin-top: 1.5rem;
 }
 
 .m_7485cace {
