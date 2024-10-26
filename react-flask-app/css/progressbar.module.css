@@ -18,3 +18,10 @@
     position: relative;
     z-index: 1;
   }
+.center {
+    margin: 0 auto;
+}
+.customprogress {
+    height: 30px;
+    background-color: #3ecf8e;
+}

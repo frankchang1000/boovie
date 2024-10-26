@@ -30,6 +30,7 @@ export function DropzoneButton() {
     };
 
     const wipePage = () => {
+        //add functionality that sends pdf to the data section/wherever pdfs are extracted
         setClearPage(true);
     }
     const undoWipe = () => {
@@ -70,7 +71,7 @@ export function DropzoneButton() {
                 </div>
             </Dropzone>
             
-            <Button size="md" radius="xl" onClick={wipePage}>
+            <Button size="md" radius="xl" color="#3ecf8e" onClick={wipePage}>
                 Upload
             </Button></div>) : (
                 <div>
