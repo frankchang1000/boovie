@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useRef } from 'react';
-import { Text, Group, Button, rem, useMantineTheme } from '@mantine/core';
-import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
-import { IconCloudUpload, IconX, IconDownload } from '@tabler/icons-react';
-import classes from '../css/upload.module.css';
+import { useRef } from "react";
+import { Text, Group, Button, rem, useMantineTheme } from "@mantine/core";
+import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
+import { IconCloudUpload, IconX, IconDownload } from "@tabler/icons-react";
+import classes from "../css/upload.module.css";
 
 export function DropzoneButton() {
   const theme = useMantineTheme();
@@ -19,7 +19,7 @@ export function DropzoneButton() {
         accept={[MIME_TYPES.pdf]}
         maxSize={30 * 1024 ** 2}
       >
-        <div style={{ pointerEvents: 'none' }}>
+        <div style={{ pointerEvents: "none" }}>
           <Group justify="center">
             <Dropzone.Accept>
               <IconDownload
@@ -36,7 +36,10 @@ export function DropzoneButton() {
               />
             </Dropzone.Reject>
             <Dropzone.Idle>
-              <IconCloudUpload style={{ width: rem(50), height: rem(50) }} stroke={1.5} />
+              <IconCloudUpload
+                style={{ width: rem(50), height: rem(50) }}
+                stroke={1.5}
+              />
             </Dropzone.Idle>
           </Group>
 
@@ -45,12 +48,19 @@ export function DropzoneButton() {
             <Dropzone.Idle>Upload PDF of Book</Dropzone.Idle>
           </Text>
           <Text ta="center" fz="sm" mt="xs" c="dimmed">
-            Drag&apos;n&apos;drop files here to upload. There is no file size limit.
+            Drag&apos;n&apos;drop files here to upload. There is no file size
+            limit.
           </Text>
         </div>
       </Dropzone>
 
-      <Button className={classes.control} size="md" radius="xl" onClick={() => openRef.current?.()}>
+      <Button
+        className={classes.control}
+        size="md"
+        radius="xl"
+        color="#3ecf8e"
+        onClick={() => openRef.current?.()}
+      >
         Select files
       </Button>
     </div>

@@ -1,8 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
 #root {
   --background-color: #ffffff;
   --text-color: #333333;
   --header-color: #f8f9fa;
-  --accent-color: #228be6;
+  --accent-color: #3ecf8e;
+  --outline-color: #3ecf8e4d;
+  text-align: center;
+  font-family: "Inter", sans-serif;
 }
 
 body[data-theme="dark"] {
@@ -16,11 +21,8 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#root {
-  margin: 0 auto;
-  text-align: center;
+  padding: 1.5rem 10rem;
+  font-family: "Inter", sans-serif;
 }
 
 .app-container {
@@ -30,10 +32,49 @@ body {
   gap: 2rem;
 }
 
+.mainTitle {
+  font-size: 3.2em;
+}
+
+.mainTitle {
+  font-size: 4em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.immersive-trailer {
+  font-size: 4em;
+  color: #3ecf8e;
+  margin: 0;
+}
+
+.titleStyle {
+  margin-bottom: rem(40px);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  display: flex;
+}
+
+.titleStyle p {
+  width: 60%;
+  color: #bbbbbb;
+  font-size: 16px;
+}
+.trending-header {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #006239;
+  letter-spacing: 0.1em;
+  /* text-shadow: -1px -1px 0 var(--outline-color), 1px -1px 0 var(--outline-color),
+    -1px 1px 0 var(--outline-color), 1px 1px 0 var(--outline-color);  */
+}
 .app-container h1 {
-  font-size: 3rem; /* Increased font size */
+  font-size: 10rem; /* Increased font size */
   font-weight: 700;
-  color: var(--header-color);
+  color: #3ecf8e4d;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   max-width: 80%;
   line-height: 1.2;
