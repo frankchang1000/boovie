@@ -1,7 +1,8 @@
+import React, { useState } from "react";
 import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
 import { Paper, Text, Title, Button, useMantineTheme, rem } from '@mantine/core';
-import classes from './CardsCarousel.css';
+import '@/css/CardsCarousel.css';
 
 interface CardProps {
   image: string;
@@ -16,13 +17,13 @@ function Card({ image, title, category }: CardProps) {
       p="xl"
       radius="md"
       style={{ backgroundImage: `url(${image})` }}
-      className={classes.card}
+      className="card"
     >
       <div>
-        <Text className={classes.category} size="xs">
+        <Text className="category" size="xs">
           {category}
         </Text>
-        <Title order={3} className={classes.title}>
+        <Title order={3} className="title">
           {title}
         </Title>
       </div>
