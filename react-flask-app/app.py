@@ -1,12 +1,16 @@
 # flask app
-
+from flask_cors import CORS
 from flask import Flask, jsonify, request
 from modules.gemini_interface import make_summary, make_script, pdf_to_text, generate_initial_image
 from modules.runway_interface import generate_video
 import asyncio
 
 app = Flask(__name__)
+CORS(app)
 # Upload file to local data/books
+UPLOAD_FOLDER = 'data/books' 
+os.makedirs(UPLOAD_FOLDER, exist_ok=True) 
+
 @app.route('/api/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
