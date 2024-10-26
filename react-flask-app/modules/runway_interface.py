@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+
 from runwayml import AsyncRunwayML
 from dotenv import dotenv_values
 import asyncio
@@ -33,5 +33,5 @@ async def main():
     with open(script_path, "r") as file:
         prompt_text = file.readline().strip()   
 
-    video_id = await generate_initial_video(prompt_text, image_path)
+    video_id = await generate_video(prompt_text, image_path)
     print(f"Initial video generated with ID: {video_id}")        
