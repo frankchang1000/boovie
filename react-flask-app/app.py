@@ -4,6 +4,7 @@ from flask import Flask, jsonify, request
 from modules.gemini_interface import make_summary, make_script, pdf_to_text, generate_initial_image
 from modules.runway_interface import generate_video
 import asyncio
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -21,7 +22,6 @@ def upload_file():
     if file and file.filename.endswith('.pdf'):
         file_path = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(file_path)  # Save the uploaded file
-        # Optionally, you can call pdf_to_text or other functions here
         try:
             pdf_to_text(file_path)  # Process the uploaded PDF
             return jsonify({"message": "File uploaded and processed successfully"}), 200

@@ -28,9 +28,36 @@ export function DropzoneButton() {
             alert("Please upload a valid PDF file.");
         }
     };
-
+    
+    const uploadToBackend = async () => {
+        if (!pdfFile) {
+            alert("No file selected.");
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append("file", pdfFile);
+    
+        try {
+            const response = await fetch("http://localhost:5000/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+    
+            const data = await response.json();
+            if (response.ok) {
+                console.log("File uploaded successfully:", data.message);
+            } else {
+                console.error("Upload failed:", data.error);
+            }
+        } catch (error) {
+            console.error("Error uploading file:", error);
+        }
+    };
+        
     const wipePage = () => {
         //add functionality that sends pdf to the data section/wherever pdfs are extracted
+        uploadToBackend();
         setClearPage(true);
     }
     const undoWipe = () => {
