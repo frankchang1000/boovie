@@ -3,18 +3,18 @@ import { useRef } from 'react';
 import { Text, Group, Button, rem, useMantineTheme } from '@mantine/core';
 import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
 import { IconCloudUpload, IconX, IconDownload } from '@tabler/icons-react';
-import '../css/upload.module.css';
+import classes from '../css/upload.module.css';
 
 export function DropzoneButton() {
   const theme = useMantineTheme();
   const openRef = useRef<() => void>(null);
 
   return (
-    <div className="wrapper">
+    <div className={classes.wrapper}>
       <Dropzone
         openRef={openRef}
         onDrop={() => {}}
-        className="dropzone"
+        className={classes.dropzone}
         radius="md"
         accept={[MIME_TYPES.pdf]}
         maxSize={30 * 1024 ** 2}
@@ -50,7 +50,7 @@ export function DropzoneButton() {
         </div>
       </Dropzone>
 
-      <Button className="control" size="md" radius="xl" onClick={() => openRef.current?.()}>
+      <Button className={classes.control} size="md" radius="xl" onClick={() => openRef.current?.()}>
         Select files
       </Button>
     </div>
