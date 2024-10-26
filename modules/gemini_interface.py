@@ -2,28 +2,77 @@ import google.generativeai as genai
 import os
 import requests
 from flask import Flask, request, jsonify
+import PyPDF2
 
 
 genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
+imagen = genai.ImageGenerationModel("imagen-3.0-generate-001")
 
 
 
-def extract_text(pdf):
-    # load the pdf file
-    uploaded_pdf = genai.upload_file(pdf)
-    response = model.generate_content(["Given the following pdf, I need you to extract the text. The text is from a book, and I only want the text that is relevant to the story (don't include the title, author, afternotes, things like that). Don't include any system responses; just provide me with the text from the story. Make sure you go through the entire pdf. ", uploaded_pdf])
+
+def extract_text(file):
+    uploaded_file = genai.upload_file(file)
+    response = model.generate_content(["The following .txt file is from a book, and I only want the text that is relevant to the story (don't include the title, author, afternotes, things like that). Don't include any system responses; just provide me with the text from the story. Make sure you go through the entire story. ", file])
     return response.text
 
 
 def make_summary(text):
-    response = model.generate_content("Given the following story, I need you to generate a summary of the story. I need the 6 most important parts of the story that contain the most action. If character names are present, do not include in the summary. I want a description of the scene that anyone could understand. Just provide me the 6 parts, each on a new line; don't use bullet points. There should be 6 lines total. Don't give system responses or give titles to the sections. Make sure to not give away the end of the story. The story is as follows: " + text)
+    response = model.generate_content(["Given the following story, generate a 6-part summary. I need the six most important parts of the story that are most critical to the plot. If any part is explicit in any way, don't use that. If character names are present, do not include in the summary. However, still describe the character's gender and visual appearance. I want a description of the scene that anyone could understand. Don't use bullet points, just provide me each of the parts on a new line. Don't give system responses or give titles to the sections. The story is as follows: ", text])
     return response.text
 
 def make_script(summary):
 
-    script = model.generate_content("Given the following summary, I need you to generate 2 sentences for each part of the summary. The sentences should be purely descriptive and not contain any character names. It should have subject (any person, place, or thing, describe what the character is wearing, hairstyle, i.e. A handsome male model, A commercial airplane, two eggs), action (what the subject is doing, adjectives work well here, i.e. walking angrily, dancing happily), setting/mood (the location, include emotional ideas about the overall mood, i.e. a dusty motel, a busy city street, stormy clouds), shot (wide angle, close up, long shot, FPV, snorricam), style (reinforce the mood, i.e. Cinematic film, 80's Action Movie, add color grading ideas) for each part of the summary. Do not include any system responses in your response, and provide a new line between each part. These parts should not be connected to each other. They should be able to be interpreted on their own without needing context from other parts. The summary is as follows: " + summary)
-    return script.text
+     script = model.generate_content("Given the following summary, generate 2 sentences for each part of the summary. The sentences should be purely descriptive and not contain any character names. Describe any character's appearance with very specific details, and make sure the details are the same throughout all summary parts. It should have subject, action (what the subject is doing, adjectives work well here, i.e. walking angrily, dancing happily), setting/mood (the location, include emotional ideas about the overall mood, i.e. a dusty motel, a busy city street, stormy clouds), shot (wide angle, close up, long shot, FPV, snorricam), style (reinforce the mood, i.e. Cinematic film, 80's Action Movie, add color grading ideas) for each part of the summary. Do not include any system responses in your response, and provide a new line between each part. Each part should be able to be interpreted on its own without needing context from other parts. Here is the template you should use: [Camera type/shot], [Main subject], [Subject action], [Camera movement], [Lighting/atmosphere], [Cinematographer/Visual Style], [Mood/emotional tone]. An example would be like: Low-angle tracking shot with a 35mm lens, capturing a hooded figure standing alone in a graffiti-covered tunnel, illuminated by the golden light streaming through the ceiling windows. The camera slowly tracks forward, following the reflections of the tunnel’s bright colors on the wet pavement below. As the figure remains still, the camera moves closer, revealing the moody atmosphere created by the contrast of vivid graffiti and deep shadows. Smoke drifts through the air, adding a sense of mystery and isolation, atmospheric compositions. The scene conveys a feeling of urban solitude and quiet intensity. The summary is as follows: " + summary)
+     return script.text
+
+def pdf_to_text(pdf_path, output_txt):
+    # Open the PDF file in read-binary mode
+    with open(pdf_path, 'rb') as pdf_file:
+        # Create a PdfReader object instead of PdfFileReader
+        pdf_reader = PyPDF2.PdfReader(pdf_file)
+
+        # Initialize an empty string to store the text
+        text = ''
+
+        for page_num in range(len(pdf_reader.pages)):
+            page = pdf_reader.pages[page_num]
+            text += page.extract_text()
+
+    # Write the extracted text to a text file
+    with open(output_txt, 'w', encoding='utf-8') as txt_file:
+        txt_file.write(text)
+
+
+def generate_initial_image(prompt_file):
+    # read the first line of the prompt file
+    with open(prompt_file, "r") as file:
+        prompt = file.readline()
+
+    # generate the initial image
+
+    result = imagen.generate_images(
+        prompt=prompt,
+        number_of_images=1,
+        safety_filter_level="block_only_high",
+        person_generation="allow_adult",
+        aspect_ratio="16:9"
+    )
+
+    for image in result.images:
+        print(image)
+
+    # save the image to the data folder
+    image_path = os.path.join("data", "initial_image.jpg")
+    image.save(image_path)
+
+
+
+
+
+
+
 
 '''
 @app.route('/api/extract_text', methods=['POST'])
@@ -72,38 +121,42 @@ if __name__ == "__main__":
 if __name__ == "__main__":
 
     base_path = "/Users/frankchang/Desktop/code/aiatl"
-    file_path = os.path.join(base_path, "data/books/hatchet in pure story.txt")
+    #file_path = os.path.join(base_path, "data/books/hatchet in pure story.txt")
+    file_path = os.path.join(base_path, "data/books/great_gatsby/F. Scott Fitzgerald - The Great Gatsby (1925, Scribner) - libgen.li.pdf")
 
 
     '''
-    text = extract_text(file_path)
-    with open(os.path.join(base_path, "data/text.txt"), "w") as file:
-        file.write(text)
-
+    pdf_to_text(file_path, os.path.join(base_path, "data/text.txt"))
     print("Text extracted and saved to data/text.txt")
-    '''
-    '''
-    with open(file_path, "r") as file:
-        text = file.read()
 
     # generate the summary
+
+    with open(os.path.join(base_path, "data/text.txt"), "r") as file:
+        text = file.read()
+
     summary = make_summary(text)
 
     # write the summary to the summary.txt file in /data/summary.txt
-    with open(os.path.join(base_path, "data/summary.txt"), "w") as file:
+    with open(os.path.join(base_path, "data/summary2.txt"), "w") as file:
         file.write(summary)
 
     print("Summary generated and saved to data/summary.txt")
-    '''
 
-    summary = os.path.join(base_path, "data/summary.txt")
+
+    summary = os.path.join(base_path, "data/summary2.txt")
     with open(summary, "r") as file:
         summary = file.read()
     # generate the script
     script = make_script(summary)
 
     # write the script to the script.txt file in /data/script.txt
-    with open(os.path.join(base_path, "data/script3.txt"), "w") as file:
+    with open(os.path.join(base_path, "data/script2.txt"), "w") as file:
         file.write(script)
 
+    print("Script generated and saved to data/script.txt")
+
+    '''
+
+
+    generate_initial_image(os.path.join(base_path, "data/script2.txt"))
 
