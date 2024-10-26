@@ -52,24 +52,26 @@ const sliderImageUrl = [
 const Slider = () => {
   return (
     <div className={classes.parent}>
-      <Carousel
-        responsive={responsive}
-        autoPlay={true}
-        swipeable={true}
-        draggable={true}
-        showDots={true}
-        infinite={true}
-        partialVisible={false}
-        dotListClass="custom-dot-list-style"
-      >
-        {sliderImageUrl.map((imageUrl, index) => {
-          return (
-            <div className={classes.slider} key={index}>
-              <img src={imageUrl.url} alt="movie" />
-            </div>
-          );
-        })}
-      </Carousel>
+      <div className={classes.sliderContainer}>
+        <Carousel
+          responsive={responsive}
+          autoPlay={true}
+          swipeable={true}
+          draggable={true}
+          showDots={true}
+          infinite={true}
+          partialVisible={false}
+          dotListClass="custom-dot-list-style"
+        >
+          {sliderImageUrl.map((imageUrl, index) => {
+            return (
+              <div className={classes.slider} key={index}>
+                <img src={imageUrl.url} alt="movie" />
+              </div>
+            );
+          })}
+        </Carousel>
+      </div>
     </div>
   );
 };

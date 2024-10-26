@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { createTheme, MantineProvider, Title, Text } from "@mantine/core";
 import { DropzoneButton } from "../components/upload";
-import { CardsCarousel } from "../components/carousel";
 import { ActionToggle } from "../components/themeselector";
 import Slider from "../components/slider";
 import NavBar from "../components/navbar";
@@ -24,7 +23,7 @@ function App() {
   return (
     <>
       <MantineProvider theme={theme}>
-        <NavBar themeMode={themeMode} setThemeMode={setThemeMode} />
+        <NavBar />
         <Title order={1} size="h1" style={{ marginBottom: "2rem" }}>
           Preview Your Next Great Read in an{" "}
           <Text
@@ -38,7 +37,7 @@ function App() {
         </Title>
         <Slider />
         <DropzoneButton />
-        {/* Remove ActionToggle from here */}
+        <ActionToggle theme={themeMode} setTheme={setThemeMode} />
       </MantineProvider>
     </>
   );
