@@ -9,7 +9,7 @@ body[data-theme="dark"] {
   --background-color: #1a1b1e;
   --text-color: #ffffff;
   --header-color: #25262b;
-  --accent-color: #74c0fc;
+  --accent-color: #a0d8ff;
 }
 
 body {
@@ -19,7 +19,6 @@ body {
 }
 
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   text-align: center;
 }
@@ -31,9 +30,8 @@ body {
   gap: 2rem;
 }
 
-/* New styles for the header */
 .app-container h1 {
-  font-size: 2.5rem;
+  font-size: 3rem; /* Increased font size */
   font-weight: 700;
   color: var(--header-color);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
