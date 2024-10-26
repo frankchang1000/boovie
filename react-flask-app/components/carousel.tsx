@@ -9,7 +9,7 @@ import {
   useMantineTheme,
   rem,
 } from "@mantine/core";
-import "../css/carousel.modules.css";
+import classes from "../css/carousel.module.css";
 
 interface CardProps {
   image: string;
@@ -24,13 +24,13 @@ function Card({ image, title, category }: CardProps) {
       p="xl"
       radius="md"
       style={{ backgroundImage: `url(${image})` }}
-      className="card"
+      className={classes.card}
     >
       <div>
-        <Text className="category" size="xs">
+        <Text className={classes.category} size="xs">
           {category}
         </Text>
-        <Title order={3} className="title">
+        <Title order={3} className={classes.title}>
           {title}
         </Title>
       </div>
@@ -91,10 +91,10 @@ export function CardsCarousel() {
 
   return (
     <Carousel
-      slideSize={{ base: "100%", sm: "50%" }}
-      slideGap={{ base: rem(2), sm: "xl" }}
+      slideSize={{ base: '100%', sm: '50%' }}
+      slideGap={{ base: rem(2), sm: 'xl' }}
       align="start"
-      slidesToScroll={mobile ? 1 : 3}
+      slidesToScroll={mobile ? 1 : 2}
     >
       {slides}
     </Carousel>
