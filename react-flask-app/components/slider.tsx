@@ -1,7 +1,7 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import "../css/slider.css";
+import classes from "../css/slider.module.css";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -22,29 +22,36 @@ const responsive = {
 const sliderImageUrl = [
   //First image url
   {
-    url: "https://i2.wp.com/www.geeksaresexy.net/wp-content/uploads/2020/04/movie1.jpg?resize=600%2C892&ssl=1",
+    url: "../imgs/1984.jpg",
   },
   {
-    url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-kids-movies-2020-call-of-the-wild-1579042974.jpg?crop=0.9760858955588091xw:1xh;center,top&resize=480:*",
+    url: "../imgs/harrypotter.jpg",
   },
-  //Second image url
   {
-    url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-movies-for-kids-2020-sonic-the-hedgehog-1571173983.jpg?crop=0.9871668311944719xw:1xh;center,top&resize=480:*",
+    url: "../imgs/percyjackson.jpg",
   },
-  //Third image url
   {
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQS82ET2bq9oTNwPOL8gqyoLoLfeqJJJWJmKQ&usqp=CAU",
+    url: "../imgs/tkam.jpg",
   },
-
-  //Fourth image url
-
   {
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdvuww0JDC7nFRxiFL6yFiAxRJgM-1tvJTxA&usqp=CAU",
+    url: "../imgs/thegiver.jpg",
+  },
+  {
+    url: "../imgs/eragon.jpg",
+  },
+  {
+    url: "../imgs/fahrenheit451.jpg",
+  },
+  {
+    url: "../imgs/lotf.jpg",
+  },
+  {
+    url: "../imgs/bookthief.jpg",
   },
 ];
 const Slider = () => {
   return (
-    <div className="parent">
+    <div className={classes.parent}>
       <Carousel
         responsive={responsive}
         autoPlay={true}
@@ -57,7 +64,7 @@ const Slider = () => {
       >
         {sliderImageUrl.map((imageUrl, index) => {
           return (
-            <div className="slider" key={index}>
+            <div className={classes.slider} key={index}>
               <img src={imageUrl.url} alt="movie" />
             </div>
           );
