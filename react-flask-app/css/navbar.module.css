@@ -11,6 +11,12 @@
   margin-top: 1.5rem;
 }
 
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust the gap between logo and text as needed */
+}
+
 .m_7485cace {
   --container-size-xs: calc(40rem * var(--mantine-scale)); /* Adjusted size */
   --container-size-sm: calc(50rem * var(--mantine-scale)); /* Adjusted size */
