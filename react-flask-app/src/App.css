@@ -131,3 +131,7 @@ body {
     max-width: 90%;
   }
 }
+
+.dropZone {
+  margin-top: 1000px;
+}
