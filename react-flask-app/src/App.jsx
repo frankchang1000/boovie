@@ -36,7 +36,6 @@ function App() {
         </Title>
         <Slider />
         <DropzoneButton />
-        {/* Pass the themeMode state and setThemeMode function to ActionToggle */}
         <ActionToggle theme={themeMode} setTheme={setThemeMode} />
       </MantineProvider>
     </>
