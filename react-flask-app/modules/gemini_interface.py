@@ -49,7 +49,7 @@ def make_script(summary, output_file="/react-flask-app/data/scripts/script.txt")
 
 
 # generates an image for runway based on the script line
-def generate_image(prompt_file, line, output_dir="/react-flask-app/data/images/"):
+def generate_initial_image(prompt_file, line, output_dir="/react-flask-app/data/images/"):
     with open(prompt_file, "r") as file:
         prompt = file.readlines()[line]
         
@@ -62,7 +62,7 @@ def generate_image(prompt_file, line, output_dir="/react-flask-app/data/images/"
         aspect_ratio="16:9"
     )
 
-    # save to /react-flask-app/data/images/image_{line}.png
+    # save to /react-flask-app/data/images/image_{line}.png,
     image_path = os.path.join(os.path.dirname(prompt_file), f"image_{line}.png")
     result.images[0].save(image_path)
 
@@ -140,7 +140,7 @@ if __name__ == "__main__":
     text = pdf_to_text(input_pdf)
     summary = make_summary(text)
     script = make_script(summary)
-    image = generate_image(script, 0)
+    image = generate_initial_image(script, 0)
     captions = generate_captions(summary)
     srt = create_srt(captions)
 
