@@ -22,9 +22,10 @@ def make_summary(text):
 
 def make_script(summary):
 
-    script = model.generate_content("Given the following summary, I need you to generate 2 sentences for each part of the summary. The sentences should be purely descriptive and not contain any character names. It should have subject (any person, place, or thing, decsribe what the character is wearing, hairstyle, i.e. A handsome male model, A commercial airplane, two eggs), action (what the subject is doing, adjectives work well here, i.e. walking angrily, dancing happily), setting/mood (the location, include emotional ideas about the overall mood, i.e. a dusty motel, a busy city street, stormy clouds), shot (wide angle, close up, long shot, FPV, snorricam), style (reinforce the mood, i.e. Cinematic film, 80's Action Movie, add color grading ideas) for each part of the summary. Do not include any system responses in your response, and provide a new line between each part. These parts should not be connected to each other. They should be able to be interpreted on their own without needing context from other parts. The summary is as follows: " + summary)
+    script = model.generate_content("Given the following summary, I need you to generate 2 sentences for each part of the summary. The sentences should be purely descriptive and not contain any character names. It should have subject (any person, place, or thing, describe what the character is wearing, hairstyle, i.e. A handsome male model, A commercial airplane, two eggs), action (what the subject is doing, adjectives work well here, i.e. walking angrily, dancing happily), setting/mood (the location, include emotional ideas about the overall mood, i.e. a dusty motel, a busy city street, stormy clouds), shot (wide angle, close up, long shot, FPV, snorricam), style (reinforce the mood, i.e. Cinematic film, 80's Action Movie, add color grading ideas) for each part of the summary. Do not include any system responses in your response, and provide a new line between each part. These parts should not be connected to each other. They should be able to be interpreted on their own without needing context from other parts. The summary is as follows: " + summary)
     return script.text
 
+'''
 @app.route('/api/extract_text', methods=['POST'])
 def api_extract_text():
     pdf = request.files.get('pdf')
@@ -60,25 +61,28 @@ def api_make_script():
 
     script = make_script(summary)
     return jsonify({"script": script})
-
+'''
+'''
 # Run the Flask app
 if __name__ == "__main__":
     app.run(debug=True)
 
-
 '''
+
 if __name__ == "__main__":
 
     base_path = "/Users/frankchang/Desktop/code/aiatl"
-    file_path = os.path.join(base_path, "data/text.txt")
+    file_path = os.path.join(base_path, "data/books/hatchet in pure story.txt")
 
 
+    '''
     text = extract_text(file_path)
     with open(os.path.join(base_path, "data/text.txt"), "w") as file:
         file.write(text)
 
     print("Text extracted and saved to data/text.txt")
-
+    '''
+    '''
     with open(file_path, "r") as file:
         text = file.read()
 
@@ -90,6 +94,7 @@ if __name__ == "__main__":
         file.write(summary)
 
     print("Summary generated and saved to data/summary.txt")
+    '''
 
     summary = os.path.join(base_path, "data/summary.txt")
     with open(summary, "r") as file:
@@ -100,6 +105,5 @@ if __name__ == "__main__":
     # write the script to the script.txt file in /data/script.txt
     with open(os.path.join(base_path, "data/script3.txt"), "w") as file:
         file.write(script)
-'''
 
 
