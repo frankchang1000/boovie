@@ -6,6 +6,7 @@ import { DropzoneButton } from "../components/upload";
 import { CardsCarousel } from "../components/carousel";
 import { ActionToggle } from "../components/themeselector";
 import Slider from "../components/slider";
+import NavBar from "../components/navbar";
 
 // Define your Mantine theme override
 const theme = createTheme({
@@ -23,6 +24,7 @@ function App() {
   return (
     <>
       <MantineProvider theme={theme}>
+        <NavBar themeMode={themeMode} setThemeMode={setThemeMode} />
         <Title order={1} size="h1" style={{ marginBottom: "2rem" }}>
           Preview Your Next Great Read in an{" "}
           <Text
@@ -36,7 +38,7 @@ function App() {
         </Title>
         <Slider />
         <DropzoneButton />
-        <ActionToggle theme={themeMode} setTheme={setThemeMode} />
+        {/* Remove ActionToggle from here */}
       </MantineProvider>
     </>
   );
