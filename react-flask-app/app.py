@@ -6,6 +6,24 @@ from modules.runway_interface import generate_video
 import asyncio
 
 app = Flask(__name__)
+# Upload file to local data/books
+@app.route('/api/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part"}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
+    if file and file.filename.endswith('.pdf'):
+        file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(file_path)  # Save the uploaded file
+        # Optionally, you can call pdf_to_text or other functions here
+        try:
+            pdf_to_text(file_path)  # Process the uploaded PDF
+            return jsonify({"message": "File uploaded and processed successfully"}), 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+    return jsonify({"error": "Invalid file type"}), 400
 
 @app.route('/api/pdf_to_text', methods=['POST'])
 def api_pdf_to_text():
