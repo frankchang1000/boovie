@@ -12,18 +12,18 @@ export function DropzoneButton() {
     const [pdfFile, setPdfFile] = useState<File | null>(null);
     const [pdfUrl, setPdfUrl] = useState<string | null>('');
     const [clearPage, setClearPage] = useState(false);
+    const [uploadStatus, setUploadStatus] = useState<string>('Upload PDF of Book'); // New state for upload status
     const theme = useMantineTheme();
     const openRef = useRef<() => void>(null);
 
     const handleFileUpload = (files: File[]) => {
-        console.log(files);
         const file = files[0];
-        console.log(file);
         if (file && file.type === 'application/pdf') {
             setPdfFile(file);
-            const url = URL.createObjectURL(file)
+            const url = URL.createObjectURL(file);
             setPdfUrl(url);
             console.log("PDF File Uploaded:", file);
+            setUploadStatus('Book uploaded'); // Update upload status
         } else {
             alert("Please upload a valid PDF file.");
         }
@@ -56,13 +56,15 @@ export function DropzoneButton() {
     };
         
     const wipePage = () => {
-        //add functionality that sends pdf to the data section/wherever pdfs are extracted
         uploadToBackend();
         setClearPage(true);
     }
+    
     const undoWipe = () => {
         setClearPage(false);
+        setUploadStatus('Upload PDF of Book'); // Reset upload status
     }
+
     return (
         <div className={classes.wrapper}>
             {!clearPage ? 
@@ -89,8 +91,8 @@ export function DropzoneButton() {
                     </Group>
 
                     <Text ta="center" fw={700} fz="lg" mt="xl">
-                        <Dropzone.Accept>Drop files here</Dropzone.Accept>
-                        <Dropzone.Idle>Upload PDF of Book</Dropzone.Idle>
+                        <Dropzone.Accept>{uploadStatus}</Dropzone.Accept> {/* Use uploadStatus here */}
+                        <Dropzone.Idle>{uploadStatus}</Dropzone.Idle>
                     </Text>
                     <Text ta="center" fz="sm" mt="xs" c="dimmed">
                         Drag&apos;n&apos;drop files here to upload. There is no file size limit.
