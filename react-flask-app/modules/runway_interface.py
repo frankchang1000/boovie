@@ -3,6 +3,7 @@ from runwayml import AsyncRunwayML
 from dotenv import dotenv_values
 import asyncio
 from gemini_interface import generate_initial_image
+from moviepy.editor import VideoFileClip, concatenate_videoclips
 
 # Load environment configuration
 config = dotenv_values(".env")
@@ -10,8 +11,6 @@ config = dotenv_values(".env")
 # Initialize the Async RunwayML client
 client = AsyncRunwayML(api_key=config["RUNWAYML_API_SECRET"])
 
-# Initialize Flask app
-app = Flask(__name__)
 
 # Define asynchronous video generation function
 async def generate_video(prompt_text: str, prompt_image_path: str) -> str:
@@ -50,19 +49,20 @@ async def generate_videos(script_path: str, image_save_dir: str):
 
     return video_ids
 
-# Flask route to trigger video generation
-@app.route('/api/generate_videos', methods=['POST'])
-def api_generate_videos():
-    # Define paths for the script and image save directory
-    script_path = "react-flask-app/data/scripts/text.txt"
-    image_save_dir = "react-flask-app/data/imgs"
+async def stitch_videos(video_ids: list, output_path: str):
+    video_clips = []
+    for video_id in video_ids:
+        # Download the video asynchronously and add it to the list of clips
+        video_path = await client.video.download(video_id)
+        video_clip = VideoFileClip(video_path)
+        video_clips.append(video_clip)
 
-    try:
-        # Run the async function and gather video IDs
-        video_ids = asyncio.run(generate_videos(script_path, image_save_dir))
-        return jsonify({"video_ids": video_ids})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    # Concatenate the video clips into one final video
+    final_clip = concatenate_videoclips(video_clips)
+    final_clip.write_videofile(output_path, codec="libx264", fps=24)
 
-if __name__ == "__main__":
-    app.run(debug=True)    
+    # Close all video clips to release resources
+    for clip in video_clips:
+        clip.close()
+
+    return output_path

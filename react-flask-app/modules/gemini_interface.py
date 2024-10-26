@@ -34,7 +34,7 @@ def pdf_to_text(pdf_path, output_txt):
     # Write the extracted text to a text file
     with open(output_txt, 'w') as text_file:
         text_file.write(text)
-        
+
     return text
 
 
@@ -54,15 +54,10 @@ def generate_initial_image(prompt_file):
     )
 
 
-    # save the image to the data folder
-    image_path = os.path.join("data", "initial_image.jpg")
-    image.save(image_path)
 
 
 
-
-
-
+'''
 if __name__ == "__main__":
 
     base_path = "/Users/frankchang/Desktop/code/aiatl/react-flask-app"
@@ -100,3 +95,4 @@ if __name__ == "__main__":
     print("Script generated and saved to data/script_hatchet.txt")
 
     #generate_initial_image(os.path.join(base_path, "data/script2.txt"))
+'''
