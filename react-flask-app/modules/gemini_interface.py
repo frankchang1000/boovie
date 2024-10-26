@@ -31,6 +31,10 @@ def pdf_to_text(pdf_path, output_txt):
             page = pdf_reader.pages[page_num]
             text += page.extract_text()
 
+    # Write the extracted text to a text file
+    with open(output_txt, 'w') as text_file:
+        text_file.write(text)
+        
     return text
 
 
@@ -58,42 +62,41 @@ def generate_initial_image(prompt_file):
 
 
 
-'''
+
 if __name__ == "__main__":
 
-    base_path = "/Users/frankchang/Desktop/code/aiatl"
-    #file_path = os.path.join(base_path, "data/books/hatchet in pure story.txt")
-    file_path = os.path.join(base_path, "data/books/great_gatsby/F. Scott Fitzgerald - The Great Gatsby (1925, Scribner) - libgen.li.pdf")
+    base_path = "/Users/frankchang/Desktop/code/aiatl/react-flask-app"
+    file_path = os.path.join(base_path, "data/books/hatchet/hatchet- summer reading novel.pdf")
+    #file_path = os.path.join(base_path, "data/books/great_gatsby/F. Scott Fitzgerald - The Great Gatsby (1925, Scribner) - libgen.li.pdf")
 
 
-    pdf_to_text(file_path, os.path.join(base_path, "data/text.txt"))
-    print("Text extracted and saved to data/text.txt")
+    pdf_to_text(file_path, os.path.join(base_path, "data/text_hatchet.txt"))
+    print("Text extracted and saved to data/text_hatchet.txt")
 
     # generate the summary
 
-    with open(os.path.join(base_path, "data/text.txt"), "r") as file:
+    with open(os.path.join(base_path, "data/text_hatchet.txt"), "r") as file:
         text = file.read()
 
     summary = make_summary(text)
 
     # write the summary to the summary.txt file in /data/summary.txt
-    with open(os.path.join(base_path, "data/summary2.txt"), "w") as file:
+    with open(os.path.join(base_path, "data/summary_hatchet.txt"), "w") as file:
         file.write(summary)
 
-    print("Summary generated and saved to data/summary.txt")
+    print("Summary generated and saved to data/summary_hatchet.txt")
 
 
-    summary = os.path.join(base_path, "data/summary2.txt")
+    summary = os.path.join(base_path, "data/summary_hatchet.txt")
     with open(summary, "r") as file:
         summary = file.read()
     # generate the script
     script = make_script(summary)
 
     # write the script to the script.txt file in /data/script.txt
-    with open(os.path.join(base_path, "data/script2.txt"), "w") as file:
+    with open(os.path.join(base_path, "data/script_hatchet.txt"), "w") as file:
         file.write(script)
 
-    print("Script generated and saved to data/script.txt")
+    print("Script generated and saved to data/script_hatchet.txt")
 
     #generate_initial_image(os.path.join(base_path, "data/script2.txt"))
-'''
