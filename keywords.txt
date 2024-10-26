@@ -1,0 +1,49 @@
+Camera styles: Low angle, High angle, Overhead, FPV, Hand held, Wide angle, Close up, Macro cinematography, Over the shoulder, Tracking, Establishing wide, 50mm lens, SnorriCam, Realistic documentary, Camcorder
+Lighting styles: Diffused lighting, Silhouette, Lens flare, Back lit, Side lit, [color] gel lighting, Venetian lighting
+
+Movement Speeds
+Keyword	Output
+Dynamic motion	
+Slow motion	
+Fast motion	
+Timelapse	
+ 
+
+Movement Types
+Keyword	Output
+Grows	
+Emerges	
+Explodes	
+Ascends	
+Undulates	
+Warps	
+Transforms	
+Ripples	
+Shatters	
+Unfolds	
+Vortex	
+ 
+
+Style and Aesthetic
+Keyword	Output
+Moody	
+Cinematic	
+Iridescent	
+Home video VHS	
+Glitchcore	
+ 
+
+Text Styles
+Keyword	Output
+Bold	
+Graffiti	
+Neon	
+Varsity	
+Embroidery	
+ 
+
+Bracket Placeholders
+For creating custom presets that are easy to reuse, you can also put part of your prompt in brackets to 1-click replace the text. For example:
+
+The camera seamlessly flies through a [subject location]
+When saved as a preset, this allows you to 1-click replace the bracket area and start typing your text whenever you reuse it. 
