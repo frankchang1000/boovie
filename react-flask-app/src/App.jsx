@@ -1,7 +1,7 @@
 import "@mantine/core/styles.css";
 import { useState } from "react";
 import "./App.css";
-import { createTheme, MantineProvider } from "@mantine/core";
+import { createTheme, MantineProvider, Title, Text } from "@mantine/core";
 import { DropzoneButton } from "../components/upload";
 import { CardsCarousel } from "../components/carousel";
 import { ActionToggle } from "../components/themeselector";
@@ -18,8 +18,18 @@ function App() {
   return (
     <>
       <MantineProvider theme={theme}>
+        <Title order={1} size="h1" style={{ marginBottom: "2rem" }}>
+          Preview Your Next Great Read in an{" "}
+          <Text
+            component="span"
+            inherit
+            color="blue"
+            style={{ display: "inline" }}
+          >
+            Immersive Trailer
+          </Text>
+        </Title>
         <Slider />
-        <CardsCarousel />
         <DropzoneButton />
         <ActionToggle />
       </MantineProvider>
