@@ -10,14 +10,6 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 imagen = genai.ImageGenerationModel("imagen-3.0-generate-001")
 
 
-
-
-def extract_text(file):
-    uploaded_file = genai.upload_file(file)
-    response = model.generate_content(["The following .txt file is from a book, and I only want the text that is relevant to the story (don't include the title, author, afternotes, things like that). Don't include any system responses; just provide me with the text from the story. Make sure you go through the entire story. ", file])
-    return response.text
-
-
 def make_summary(text):
     response = model.generate_content(["Given the following story, generate a 6-part summary. I need the six most important parts of the story that are most critical to the plot. If any part is explicit in any way, don't use that. If character names are present, do not include in the summary. However, still describe the character's gender and visual appearance. I want a description of the scene that anyone could understand. Don't use bullet points, just provide me each of the parts on a new line. Don't give system responses or give titles to the sections. The story is as follows: ", text])
     return response.text
@@ -72,52 +64,6 @@ def generate_initial_image(prompt_file):
 
 
 
-
-
-'''
-@app.route('/api/extract_text', methods=['POST'])
-def api_extract_text():
-    pdf = request.files.get('pdf')
-    if not pdf:
-        return jsonify({"error": "No PDF file provided"}), 400
-
-    # Save the uploaded PDF to a temporary location
-    pdf_path = os.path.join("data", pdf.filename)
-    pdf.save(pdf_path)
-
-    # Extract text from the PDF
-    extracted_text = extract_text(pdf_path)
-    return jsonify({"text": extracted_text})
-
-# Flask route to generate summary
-@app.route('/api/make_summary', methods=['POST'])
-def api_make_summary():
-    data = request.get_json()
-    text = data.get("text")
-    if not text:
-        return jsonify({"error": "No text provided"}), 400
-
-    summary = make_summary(text)
-    return jsonify({"summary": summary})
-
-# Flask route to generate script
-@app.route('/api/make_script', methods=['POST'])
-def api_make_script():
-    data = request.get_json()
-    summary = data.get("summary")
-    if not summary:
-        return jsonify({"error": "No summary provided"}), 400
-
-    script = make_script(summary)
-    return jsonify({"script": script})
-'''
-'''
-# Run the Flask app
-if __name__ == "__main__":
-    app.run(debug=True)
-
-'''
-
 if __name__ == "__main__":
 
     base_path = "/Users/frankchang/Desktop/code/aiatl"
@@ -125,7 +71,6 @@ if __name__ == "__main__":
     file_path = os.path.join(base_path, "data/books/great_gatsby/F. Scott Fitzgerald - The Great Gatsby (1925, Scribner) - libgen.li.pdf")
 
 
-    '''
     pdf_to_text(file_path, os.path.join(base_path, "data/text.txt"))
     print("Text extracted and saved to data/text.txt")
 
@@ -155,8 +100,5 @@ if __name__ == "__main__":
 
     print("Script generated and saved to data/script.txt")
 
-    '''
-
-
-    generate_initial_image(os.path.join(base_path, "data/script2.txt"))
+    #generate_initial_image(os.path.join(base_path, "data/script2.txt"))
 
