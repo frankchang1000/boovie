@@ -1,11 +1,10 @@
 import "@mantine/core/styles.css";
-import CardsCarousel from "@/components/carousel.tsx";
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { createTheme, MantineProvider } from "@mantine/core";
-
+import { DropzoneButton } from "../components/upload";
 import { CardsCarousel } from "../components/carousel";
 
 const theme = createTheme({
@@ -19,6 +18,7 @@ function App() {
     <>
       <MantineProvider theme={theme}>
         <CardsCarousel />
+        <DropzoneButton />
       </MantineProvider>
     </>
   );
