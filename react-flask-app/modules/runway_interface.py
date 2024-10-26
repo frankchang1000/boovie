@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+
 from runwayml import AsyncRunwayML
 from dotenv import dotenv_values
 import asyncio
@@ -64,7 +64,5 @@ def api_generate_videos():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Run the Flask app
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    app.run(debug=True)    

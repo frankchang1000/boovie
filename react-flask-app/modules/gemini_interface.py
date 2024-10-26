@@ -1,7 +1,6 @@
 import google.generativeai as genai
 import os
 import requests
-from flask import Flask, request, jsonify
 import PyPDF2
 
 
@@ -32,9 +31,7 @@ def pdf_to_text(pdf_path, output_txt):
             page = pdf_reader.pages[page_num]
             text += page.extract_text()
 
-    # Write the extracted text to a text file
-    with open(output_txt, 'w', encoding='utf-8') as txt_file:
-        txt_file.write(text)
+    return text
 
 
 def generate_initial_image(prompt_file):
@@ -52,8 +49,6 @@ def generate_initial_image(prompt_file):
         aspect_ratio="16:9"
     )
 
-    for image in result.images:
-        print(image)
 
     # save the image to the data folder
     image_path = os.path.join("data", "initial_image.jpg")
@@ -63,7 +58,7 @@ def generate_initial_image(prompt_file):
 
 
 
-
+'''
 if __name__ == "__main__":
 
     base_path = "/Users/frankchang/Desktop/code/aiatl"
@@ -101,4 +96,4 @@ if __name__ == "__main__":
     print("Script generated and saved to data/script.txt")
 
     #generate_initial_image(os.path.join(base_path, "data/script2.txt"))
-
+'''
