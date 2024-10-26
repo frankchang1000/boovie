@@ -35,6 +35,3 @@ async def main():
 
     video_id = await generate_initial_video(prompt_text, image_path)
     print(f"Initial video generated with ID: {video_id}")        
-# Run the Flask app
-if __name__ == "__main__":
-    app.run(debug=True)
