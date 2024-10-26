@@ -1,3 +1,23 @@
+:root {
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --header-color: #f8f9fa;
+  --accent-color: #228be6;
+}
+
+[data-theme="dark"] {
+  --background-color: #1a1b1e;
+  --text-color: #ffffff;
+  --header-color: #25262b;
+  --accent-color: #74c0fc;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,15 +25,40 @@
   text-align: center;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* New styles for the header */
+.app-container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--header-color);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  line-height: 1.2;
+}
+
+.app-container h1 span {
+  color: var(--accent-color);
+  transition: color 0.3s ease;
+}
+
+/* Existing styles */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -39,4 +84,12 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .app-container h1 {
+    font-size: 2rem;
+    max-width: 90%;
+  }
 }
