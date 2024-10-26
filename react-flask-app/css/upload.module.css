@@ -1,6 +1,7 @@
 .wrapper {
   position: relative;
   margin-bottom: rem(30px);
+  margin-top: rem(50px);
 }
 
 .dropzone {

@@ -16,7 +16,7 @@ export function ActionToggle() {
   });
 
   return (
-    <Group className={classes.toprightbutton}>
+    <Group>
       <ActionIcon
         onClick={() =>
           setColorScheme(computedColorScheme === "light" ? "dark" : "light")

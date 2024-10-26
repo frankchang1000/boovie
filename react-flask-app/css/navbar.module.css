@@ -1,9 +1,26 @@
 .header {
+  position: sticky; /* Make the navbar sticky */
+  top: 20px; /* Stick to the top of the viewport */
+  z-index: 1000;
   height: rem(56px);
-  margin-bottom: rem(120px);
+  margin-bottom: rem(40px);
   background-color: var(--mantine-color-body);
   border-bottom: rem(1px) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-radius: 30px;
+  margin-top: 1.5rem;
+}
+
+.m_7485cace {
+  --container-size-xs: calc(40rem * var(--mantine-scale)); /* Adjusted size */
+  --container-size-sm: calc(50rem * var(--mantine-scale)); /* Adjusted size */
+  --container-size-md: calc(0rem * var(--mantine-scale)); /* Adjusted size */
+  --container-size-lg: calc(75rem * var(--mantine-scale)); /* Adjusted size */
+  --container-size-xl: calc(90rem * var(--mantine-scale)); /* Adjusted size */
+  --container-size: var(--container-size-md); /* Default container size */
+  max-width: var(--container-size);
+  padding-inline: var(--mantine-spacing-md);
+  margin-inline: auto;
 }
 
 .inner {
@@ -11,6 +28,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0;
 }
 
 .link {

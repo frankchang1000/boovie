@@ -49,6 +49,8 @@ const sliderImageUrl = [
     url: "../imgs/bookthief.jpg",
   },
 ];
+// ... existing code ...
+
 const Slider = () => {
   return (
     <div className={classes.parent}>
@@ -66,7 +68,13 @@ const Slider = () => {
           {sliderImageUrl.map((imageUrl, index) => {
             return (
               <div className={classes.slider} key={index}>
-                <img src={imageUrl.url} alt="movie" />
+                <button
+                  className={classes.imageButton}
+                  onClick={() => console.log(`Clicked on image ${index + 1}`)}
+                  style={{ border: "none", background: "none", padding: 0 }}
+                >
+                  <img src={imageUrl.url} alt="movie" />
+                </button>
               </div>
             );
           })}
@@ -75,4 +83,5 @@ const Slider = () => {
     </div>
   );
 };
+
 export default Slider;

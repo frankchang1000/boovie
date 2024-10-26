@@ -75,7 +75,7 @@ export function DropzoneButton() {
             </Button></div>) : (
                 <div>
                     <ProgressBarComponent />
-                    <Button size="md" radius="xl" onClick={undoWipe}>Undo Wipe</Button>
+                    <Button size="md" radius="xl"  color="#3ecf8e" onClick={undoWipe}>Undo Wipe</Button>
                 </div>
             )}
         </div>

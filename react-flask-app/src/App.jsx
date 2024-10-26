@@ -24,20 +24,17 @@ function App() {
     <>
       <MantineProvider theme={theme}>
         <NavBar />
-        <Title order={1} size="h1" style={{ marginBottom: "2rem" }}>
-          Preview Your Next Great Read in an{" "}
-          <Text
-            component="span"
-            inherit
-            color="blue"
-            style={{ display: "inline" }}
-          >
-            Immersive Trailer
-          </Text>
-        </Title>
+        <div className="titleStyle">
+          <h1 className="mainTitle"> Preview Your Next Great Read </h1>
+          <h1 className="immersive-trailer"> in an Immersive Trailer</h1>
+          <p>
+            Upload your own novel or choose from our trending book presets to
+            watch a trailer before selecting your next read.
+          </p>
+        </div>
+        <h3 className="trending-header">TRENDING</h3>
         <Slider />
         <DropzoneButton />
-        <ActionToggle theme={themeMode} setTheme={setThemeMode} />
       </MantineProvider>
     </>
   );
