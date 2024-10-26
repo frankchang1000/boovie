@@ -1,11 +1,11 @@
-:root {
+#root {
   --background-color: #ffffff;
   --text-color: #333333;
   --header-color: #f8f9fa;
   --accent-color: #228be6;
 }
 
-[data-theme="dark"] {
+body[data-theme="dark"] {
   --background-color: #1a1b1e;
   --text-color: #ffffff;
   --header-color: #25262b;

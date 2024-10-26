@@ -3,43 +3,25 @@
   height: rem(22px);
 }
 
-:root {
-  --dark-display: block;
-  --light-display: none;
-}
-
-[data-theme="dark"] {
-  --dark-display: none;
-  --light-display: block;
-}
-
 .dark {
-  display: var(--dark-display);
+  @mixin dark {
+    display: none;
+  }
+
+  @mixin light {
+    display: block;
+  }
 }
 
 .light {
-  display: var(--light-display);
-}
-
-/* .dark {
-    @mixin dark {
-      display: none;
-    }
-  
-    @mixin light {
-      display: block;
-    }
+  @mixin light {
+    display: none;
   }
-  
-  .light {
-    @mixin light {
-      display: none;
-    }
-  
-    @mixin dark {
-      display: block;
-    }
-  } */
+
+  @mixin dark {
+    display: block;
+  }
+}
 .toprightbutton {
   position: absolute;
   top: 10px;

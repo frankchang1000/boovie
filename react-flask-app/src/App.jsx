@@ -1,19 +1,24 @@
 import "@mantine/core/styles.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { createTheme, MantineProvider, Title, Text } from "@mantine/core";
 import { DropzoneButton } from "../components/upload";
 import { CardsCarousel } from "../components/carousel";
 import { ActionToggle } from "../components/themeselector";
-
 import Slider from "../components/slider";
 
+// Define your Mantine theme override
 const theme = createTheme({
   /** Put your mantine theme override here */
 });
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [themeMode, setThemeMode] = useState("light");
+
+  useEffect(() => {
+    // Set the selected theme by applying the data-theme attribute on the body
+    document.body.setAttribute("data-theme", themeMode);
+  }, [themeMode]);
 
   return (
     <>
@@ -31,7 +36,8 @@ function App() {
         </Title>
         <Slider />
         <DropzoneButton />
-        <ActionToggle />
+        {/* Pass the themeMode state and setThemeMode function to ActionToggle */}
+        <ActionToggle theme={themeMode} setTheme={setThemeMode} />
       </MantineProvider>
     </>
   );
