@@ -10,7 +10,7 @@ export default function NavBar({ themeMode, setThemeMode }) {
 
   return (
     <header className={classes.header}>
-      <Container size="1300px" className={classes.inner}> 
+      <Container size="1150px" className={classes.inner}> 
         <div className={classes.logoContainer}>
           <img src={Logo} alt="Logo" width={50} height={50} />
           <h3>Boovies</h3>

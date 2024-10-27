@@ -15,7 +15,7 @@ export function DropzoneButton() {
   const [uploadStatus, setUploadStatus] = useState<string>("Upload PDF of Book");
   const theme = useMantineTheme();
   const openRef = useRef<() => void>(null);
-  const filePath = "../data/videos/video_with_captions_hatchet.mp4";
+  const filePath = "../data/videos/gatsby_trailer_captions.mp4";
 
   const handleFileUpload = (files: File[]) => {
     const file = files[0];
