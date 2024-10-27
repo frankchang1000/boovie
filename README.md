@@ -3,9 +3,11 @@
   <img src="https://github.com/frankchang1000/aiatl/blob/main/react-flask-app/assets/images/logo.png", width="300"/>
 </p>
 
-# boovie
+# Boovie
 
-automatically generate movie trailers with a pdf of a book
+Automatically generate movie trailers with a pdf of a book
+
+https://github.com/user-attachments/assets/ebf36a5a-fafa-455f-8992-b3eb51a028a2
 
 ## Table of Contents 🧾
 * [Why boovie](#why-boovie)
@@ -14,10 +16,10 @@ automatically generate movie trailers with a pdf of a book
 * [How can we improve?](#how-can-we-improve-)
 * [License](#License)
 
-## why boovie❓
+## Why Boovie❓
 Books hold incredible stories, but reaching new audiences is challenging in a media-saturated world. Boovie bridges this gap by using state-of-the-art AI to transform written stories into cinematic trailers, giving authors, publishers, and readers a powerful new tool to experience, market, and share books. Trailers are proven to captivate audiences, and Boovie empowers every book—no matter its genre or reach—to compete in the visual age. 
 
-## how it works 💻
+## How it Works 💻
 
 This diagram shows the workflow for generating a video trailer from a book PDF.
 
@@ -88,7 +90,7 @@ A life of excess, shrouded in mystery.
 The 6 clips are assembled using MoviePy. Once the 30-second video is made, the captions are laid over using the .srt created earlier. This file is posted back to the frontend with Flask.
 
 
-## challenges 👎
+## Challenges 👎
 
 One of the most significant challenges we faced was understanding which prompt gave the best results when we input them into Runway’s API. Every video generated during the testing phase took 50 credits per request. In total, we burned through more than $80 of credits. AI generated images and videos also struggle with continuity issues, often generating out-of-context scenes while burning our credits. To overcome this, we needed to develop a sophisticated approach for generating prompts to have as much control as we could in what Runway would generate. AI platforms such as Gemini and Runway AI are essentially black boxes and leave too much room for random chance with drastic variations in between generated versions. Video generation AI's are still in early stage development as well, so the API support was extremely limited.
 
@@ -101,13 +103,13 @@ https://github.com/user-attachments/assets/cbfd19b2-d0f2-4e57-87e5-25d4a2b01159
 
 
 
-## how can we improve? 🤔
+## How Can We Improve? 🤔
 
 Deploying Boovie before moving on to improve compatibility with mobile devices would unlock real-time video generation for more users, enabling seamless, portable access to those interested in checking out or purchasing books in a library/bookstore setting. 
 
 Additionally, while the current model depends on Gemini’s image generation, implementing a web scraping algorithm would allow Boovie to generate even more realistic videos with accurate references created by existing cinematic or informal adaptations. Finally, implementing multithreading to generate multiple book pdf files simultaneously would enable users to create trailers for an entire series or numerous books of interest at once, significantly expediting the video generation process.
 
-## license 📜
+## License 📜
 
 Copyright 2024 ©Vineeth Sendilraj, John Kim, Frank Chang, Alex Chen
 
