@@ -8,6 +8,7 @@ import { DisplayPdf } from "./displaypdf.tsx";
 import { Progress, Box, ChakraProvider } from '@chakra-ui/react';
 import ProgressBarComponent from "./progressbar.tsx";
 import AnimatedText from "./AnimatedText";
+import VideoPlayer from "./videoplayer.tsx";
 
 export function DropzoneButton() {
     const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -102,15 +103,15 @@ export function DropzoneButton() {
             </Dropzone>
             {pdfFile && (
                 <Button size="md" radius="xl" color="#3ecf8e" onClick={wipePage}>
-                    Upload
+                    Generate
                 </Button>
             )}
             </div>) : (
                 <div>
-
                     <ProgressBarComponent />
                     <AnimatedText />
-                    <Button size="md" radius="xl"  color="#3ecf8e" onClick={undoWipe}>Undo Wipe</Button>
+                    <VideoPlayer filePath={"../results/ding.mp4"}/>
+                    <Button size="md" radius="xl"  color="#3ecf8e" onClick={undoWipe}>Generate Another</Button>
                 </div>
             )}
         </div>
