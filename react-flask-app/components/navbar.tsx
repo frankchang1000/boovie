@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Group, Burger } from "@mantine/core";
+import { Container, Group, Burger, MantineProvider } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "../css/navbar.module.css";
 import { ActionToggle } from "./themeselector";
@@ -10,7 +10,7 @@ export default function NavBar({ themeMode, setThemeMode }) {
 
   return (
     <header className={classes.header}>
-      <Container size="md" className={classes.inner}>
+      <Container size="1300px" className={classes.inner}> 
         <div className={classes.logoContainer}>
           <img src={Logo} alt="Logo" width={50} height={50} />
           <h3>Boovies</h3>
@@ -20,6 +20,5 @@ export default function NavBar({ themeMode, setThemeMode }) {
           <ActionToggle theme={themeMode} setTheme={setThemeMode} />
         </Group>
       </Container>
-    </header>
-  );
+    </header>);
 }

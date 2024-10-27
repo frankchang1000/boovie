@@ -69,6 +69,8 @@ export function DropzoneButton() {
   const undoWipe = () => {
     setClearPage(false);
     setShowVideo(false); // Reset video state when undoing
+    setPdfFile(null);
+    setPdfUrl(null);
     setUploadStatus("Upload PDF of Book");
   };
 
