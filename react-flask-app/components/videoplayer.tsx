@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
-//import { Player } from 'video-react';
-//import "node_modules/video-react/dist/video-react.css";
 import classes from "../css/videoplayer.module.css";
 
 /*
