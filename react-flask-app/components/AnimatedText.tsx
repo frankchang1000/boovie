@@ -1,28 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { LuSparkle } from "react-icons/lu"; // Import the LuSparkle icon
 
-const phrases = [
-  "Reading...",
-  "Generating summaries...",
-  "Generating scripts...",
-  "Generating images...",
-  "Generating video...",
-];
+interface AnimatedTextProps {
+  phrase: string; // Define the prop type
+}
 
-const AnimatedText: React.FC = () => {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    // Only set interval if not on the last phrase
-    if (index < phrases.length - 1) {
-      const interval = setInterval(() => {
-        setIndex((prevIndex) => prevIndex + 1);
-      }, 5000);
-
-      return () => clearInterval(interval); // Cleanup interval
-    }
-  }, [index]);
-
+const AnimatedText: React.FC<AnimatedTextProps> = ({ phrase }) => {
   return (
     <div
       style={{
@@ -40,7 +23,7 @@ const AnimatedText: React.FC = () => {
           animation: "spin 2s linear infinite", // Inline spinning animation
         }}
       />
-      <div style={{ fontSize: "1.0rem", color: "white" }}>{phrases[index]}</div>
+      <div style={{ fontSize: "1.0rem", color: "white" }}>{phrase}</div>
       <style>{`
                 @keyframes spin {
                     from {

@@ -13,9 +13,10 @@ export function DropzoneButton() {
   const [clearPage, setClearPage] = useState(false);
   const [showVideo, setShowVideo] = useState(false); // State to control video display
   const [uploadStatus, setUploadStatus] = useState<string>("Upload PDF of Book");
+  const [filePath, setFilePath] = useState<string | null>(null); // State to store the file path from the server
   const theme = useMantineTheme();
   const openRef = useRef<() => void>(null);
-  const filePath = "../data/videos/gatsby_trailer_captions.mp4";
+  const [algorithmState, setAlgorithmState] = useState<string>("Reading file...")
 
   const handleFileUpload = (files: File[]) => {
     const file = files[0];
@@ -30,6 +31,16 @@ export function DropzoneButton() {
     }
   };
 
+  const checkProcessingStatus = async (taskId: string) => {
+    try {
+      const response = await fetch(`http://localhost:5000/status/${taskId}`);
+      const data = await response.json();
+      setAlgorithmState(data.status); // Update the algorithm state based on the response
+    } catch (error) {
+      console.error("Error fetching status:", error);
+    }
+  };
+
   const uploadToBackend = async () => {
     if (!pdfFile) {
       alert("No file selected.");
@@ -40,7 +51,7 @@ export function DropzoneButton() {
     formData.append("file", pdfFile);
 
     try {
-      const response = await fetch("http://localhost:5000/api/upload", {
+      const response = await fetch("http://localhost:5000/upload_pdf", {
         method: "POST",
         body: formData,
       });
@@ -48,6 +59,9 @@ export function DropzoneButton() {
       const data = await response.json();
       if (response.ok) {
         console.log("File uploaded successfully:", data.message);
+        setFilePath(data.task_id);
+        return data; // Assuming task_id is used to identify the uploaded file
+        
       } else {
         console.error("Upload failed:", data.error);
       }
@@ -56,14 +70,29 @@ export function DropzoneButton() {
     }
   };
 
-  const wipePage = () => {
-    uploadToBackend();
+  const wipePage = async () => {
     setClearPage(true);
-
-    // Show video and button after 1 minute (60 seconds)
-    setTimeout(() => {
-      setShowVideo(true);
-    }, 60000); // 60,000 ms = 1 minute
+    const response = await uploadToBackend(); // Wait for the upload to complete
+    const taskId = response.task_id; // Get the task ID from the response
+  
+    // Polling for status updates
+    const intervalId = setInterval(() => {
+      checkProcessingStatus(taskId);
+    }, 2000); // Check every 2 seconds
+  
+    setShowVideo(true);
+  
+    // Clear the interval when the processing is complete
+    const checkCompletion = async () => {
+      const response = await fetch(`http://localhost:5000/status/${taskId}`);
+      const data = await response.json();
+      if (data.status === 'completed' || data.status.startsWith('error:')) {
+        clearInterval(intervalId);
+      }
+    };
+  
+    // Check completion status every 2 seconds
+    const completionIntervalId = setInterval(checkCompletion, 2000);
   };
 
   const undoWipe = () => {
@@ -130,10 +159,12 @@ export function DropzoneButton() {
           }}
         >
           {!showVideo ? (
-            <AnimatedText />
+            <AnimatedText phrase={algorithmState[0]}/>
           ) : (
             <>
-              <VideoPlayer filePath={filePath} />
+              {showVideo && filePath && ( // Use filePath state to pass to VideoPlayer
+                <VideoPlayer filePath={`../data/${filePath}_captioned_trailer.mp4`} />
+              )}
               <Button size="md" radius="xl" color="#3ecf8e" onClick={undoWipe}>
                 Generate Another
               </Button>

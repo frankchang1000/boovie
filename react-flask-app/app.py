@@ -47,12 +47,18 @@ def process_file(file_path, output_path, task_id):
     try:
         text = pdf_to_text(file_path)
         summary = make_summary(text)
+        processing_tasks[task_id] = 'making_summary'
         script = make_script(summary)
+        processing_tasks[task_id] = 'make_script'
         videos = asyncio.run(generate_videos(script, os.path.join(BASE_PATH, "images")))
+        processing_tasks[task_id] = 'make_video'
         trailer = stitch_videos(videos, os.path.join(BASE_PATH, "output.mp4"))
+        processing_tasks[task_id] = 'stitch_video'
         captions = generate_captions(script)
+        processing_tasks[task_id] = 'creating_captions'
         srt = create_srt(captions)
         captioned_trailer = burn_subtitles(trailer, srt, output_path)
+        processing_tasks[task_id] = 'completing_video'
         processing_tasks[task_id] = 'completed'
     except Exception as e:
         processing_tasks[task_id] = f'error: {str(e)}'
