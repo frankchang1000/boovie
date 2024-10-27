@@ -92,6 +92,9 @@ The 6 clips are assembled using MoviePy. Once the 30-second video is made, the c
 
 One of the most significant challenges we faced was understanding which prompt gave the best results when we input them into Runway’s API. Every video generated during the testing phase took 50 credits per request. In total, we burned through more than $80 of credits. AI generated images and videos also struggle with continuity issues, often generating out-of-context scenes while burning our credits. To overcome this, we needed to develop a sophisticated approach for generating prompts to have as much control as we could in what Runway would generate. AI platforms such as Gemini and Runway AI are essentially black boxes and leave too much room for random chance with drastic variations in between generated versions.
 
+For an example of a failed prompting, see 
+[![Watch the video](https://img.youtube.com/vi/5WG84NNAA8M/0.jpg)](https://youtu.be/5WG84NNAA8M)
+
 ## how can we improve? 🤔
 
 Deploying Boovie before moving on to improve compatibility with mobile devices would unlock real-time video generation for more users, enabling seamless, portable access to those interested in checking out or purchasing books in a library/bookstore setting. 
