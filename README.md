@@ -5,7 +5,7 @@
 
 # Boovie
 
-automatically generate movie trailers with a pdf of a book
+Automatically generate movie trailers with a pdf of a book
 
 ## Table of Contents 🧾
 * [Why boovie](#why-boovie)
@@ -17,7 +17,7 @@ automatically generate movie trailers with a pdf of a book
 ## Why Boovie❓
 Books hold incredible stories, but reaching new audiences is challenging in a media-saturated world. Boovie bridges this gap by using state-of-the-art AI to transform written stories into cinematic trailers, giving authors, publishers, and readers a powerful new tool to experience, market, and share books. Trailers are proven to captivate audiences, and Boovie empowers every book—no matter its genre or reach—to compete in the visual age. 
 
-## How it works 💻
+## How it Works 💻
 
 This diagram shows the workflow for generating a video trailer from a book PDF.
 
@@ -101,7 +101,7 @@ https://github.com/user-attachments/assets/cbfd19b2-d0f2-4e57-87e5-25d4a2b01159
 
 
 
-## How can we improve? 🤔
+## How Can We Improve? 🤔
 
 Deploying Boovie before moving on to improve compatibility with mobile devices would unlock real-time video generation for more users, enabling seamless, portable access to those interested in checking out or purchasing books in a library/bookstore setting. 
 
