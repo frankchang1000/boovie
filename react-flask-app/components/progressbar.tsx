@@ -9,14 +9,15 @@ import LinearProgress from "@mui/material/LinearProgress";
 
 export default function ProgressBarComponent() {
   return (
-    <Box sx={{ width: "100%", height: "50px" }}>
+    <Box sx={{ width: "100%", height: "50px", borderRadius: "30px" }}>
       <LinearProgress
         variant="indeterminate"
         sx={{
           height: "10px", // Customize the height
           backgroundColor: "#82e6b9",
           "& .MuiLinearProgress-bar": {
-            backgroundColor: "#3ecf8e", // Change this to your desired color
+            backgroundColor: "#3ecf8e",
+            borderRadius: "30px", // Change this to your desired color
           },
         }}
       />

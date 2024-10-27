@@ -1,0 +1,12 @@
+.spinning-icon {
+    animation: spin 2s linear infinite; /* Adjust the duration as needed */
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
