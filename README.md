@@ -70,9 +70,9 @@ Once the summary is created, we carefully prompt Gemini again to create an extre
 “Over-the-shoulder shot, A young man watches as the couple stands in the heart of the lavish mansion, their backs to him, their faces lost in the moment. He watches them, his face clouded with a mix of sadness and concern. The scene is lit by a soft, warm light, casting a gentle glow on their faces. The camera slowly zooms in on the young man's face, revealing a mix of emotions - confusion, worry, and a hint of frustration. The film uses a gritty, realistic style, capturing the emotional turmoil of the moment. The mood is one of unease and growing suspicion.”
 ```
 
-Runway’s Gen3-Alpha-Turbo API requires an input image along with text input. As such, we took the scene description and prompted Gemini Imagen to generate a starting scene for the shot. Both the image and the script line is passed to Gen3-Alpha-Turbo. Currently, Gen3-Alpha-Turbo is limited to 5 second videos so we conduct this process 6 times to make 6 clips (to create a 30-second trailer). 
+Runway’s Gen3-Alpha-Turbo API requires an input image along with text input. As such, we took the scene description and prompted Gemini Imagen to generate a starting scene for the shot. Both the image and the script line are passed to Gen3-Alpha-Turbo. Currently, Gen3-Alpha-Turbo is limited to 5 second videos so we conduct this process 6 times to make 6 clips (to create a 30-second trailer). 
 
-We also carefully prompted Gemini to 6 short captions for each of the summary parts to be used in the final movie trailer. The raw text for this was converted into a .srt, which is the standard format for captions – it looks like the following:
+We also carefully prompted Gemini to generate 6 short captions for each of the summary parts to be used in the final movie trailer. The raw text for this was converted into a .srt, which is the standard format for captions – it looks like the following:
 
 ```srt
 1
@@ -90,7 +90,7 @@ The 6 clips are assembled using MoviePy. Once the 30-second video is made, the c
 
 ## challenges 👎
 
-One of the most significant challenges we faced was understanding which prompt gave the best results when we input them into Runway’s API. Every video generated during the testing phase took 50 credits per request. AI generated images and videos also struggle with continuity issues, often generating out-of-context scenes while burning our credits. To overcome this, we needed to develop a sophisticated approach for generating prompts to have as much control as we could in what Runway would generate. AI platforms such as Gemini and Runway AI are essentially black boxes and leave too much room for random chance with drastic variations in between generated versions.
+One of the most significant challenges we faced was understanding which prompt gave the best results when we input them into Runway’s API. Every video generated during the testing phase took 50 credits per request. In total, we burned through more than $80 of credits. AI generated images and videos also struggle with continuity issues, often generating out-of-context scenes while burning our credits. To overcome this, we needed to develop a sophisticated approach for generating prompts to have as much control as we could in what Runway would generate. AI platforms such as Gemini and Runway AI are essentially black boxes and leave too much room for random chance with drastic variations in between generated versions.
 
 ## how can we improve? 🤔
 
