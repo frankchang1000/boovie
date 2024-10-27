@@ -100,11 +100,14 @@ export function DropzoneButton() {
                     </Text>
                 </div>
             </Dropzone>
-            
-            <Button size="md" radius="xl" color="#3ecf8e" onClick={wipePage}>
-                Upload
-            </Button></div>) : (
+            {pdfFile && (
+                <Button size="md" radius="xl" color="#3ecf8e" onClick={wipePage}>
+                    Upload
+                </Button>
+            )}
+            </div>) : (
                 <div>
+
                     <ProgressBarComponent />
                     <AnimatedText />
                     <Button size="md" radius="xl"  color="#3ecf8e" onClick={undoWipe}>Undo Wipe</Button>
