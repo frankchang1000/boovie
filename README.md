@@ -7,6 +7,9 @@
 
 Automatically generate movie trailers with a pdf of a book
 
+https://github.com/user-attachments/assets/7195f5fd-f7ac-467d-b19b-3b360f87383b
+
+
 ## Table of Contents 🧾
 * [Why boovie](#why-boovie)
 * [How it Works](#how-it-works-)
