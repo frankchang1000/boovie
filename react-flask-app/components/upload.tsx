@@ -17,6 +17,7 @@ export function DropzoneButton() {
     const [uploadStatus, setUploadStatus] = useState<string>('Upload PDF of Book'); // New state for upload status
     const theme = useMantineTheme();
     const openRef = useRef<() => void>(null);
+    const filePath = "../results/ding.mp4";
 
     const handleFileUpload = (files: File[]) => {
         const file = files[0];
@@ -110,7 +111,7 @@ export function DropzoneButton() {
                 <div>
                     <ProgressBarComponent />
                     <AnimatedText />
-                    <VideoPlayer filePath={"../results/ding.mp4"}/>
+                    <VideoPlayer filePath={filePath}/>
                     <Button size="md" radius="xl"  color="#3ecf8e" onClick={undoWipe}>Generate Another</Button>
                 </div>
             )}
