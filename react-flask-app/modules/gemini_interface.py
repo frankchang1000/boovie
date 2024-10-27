@@ -63,8 +63,12 @@ def generate_initial_image(prompt_file, line, output_dir="/react-flask-app/data/
     )
 
     # save to /react-flask-app/data/images/image_{line}.png,
-    image_path = os.path.join(os.path.dirname(prompt_file), f"image_{line}.png")
-    result.images[0].save(image_path)
+    image_path = os.path.join(output_dir, f"image_{line}.png")
+
+    for image in result.images:
+        image._pil_image.save(image_path)
+        print(f"Image saved to {image_path}")
+    
 
     return image_path
 
@@ -130,7 +134,6 @@ def burn_subtitles(video_path, subtitle_path, output_path = "/react-flask-app/da
     return output_path
 
 
-
 '''
 if __name__ == "__main__":
 
@@ -140,7 +143,19 @@ if __name__ == "__main__":
     text = pdf_to_text(input_pdf)
     summary = make_summary(text)
     script = make_script(summary)
-    image = generate_initial_image(script, 0)
+
+    for i, line in enumerate(open(input_summary)):
+        # Strip whitespace from the line and check if it's not empty
+        line = line.strip()
+        if line:  # Only proceed if the line is non-empty
+            image = generate_initial_image(input_summary, i)
+            print(f"Image {i} generated successfully!")
+        else:
+            print(f"Skipping empty line at index {i}")
+
+    print("All images generated successfully!")
+
+    
     captions = generate_captions(summary)
     srt = create_srt(captions)
 
@@ -150,3 +165,4 @@ if __name__ == "__main__":
     print("Video with subtitles generated successfully!")
 
 '''
+
