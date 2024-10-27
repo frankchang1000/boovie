@@ -9,6 +9,7 @@
   overflow: "hidden";
   padding: 0rem 0;
   padding-bottom: 2rem;
+  z-index: 1;
 }
 
 .parent {
