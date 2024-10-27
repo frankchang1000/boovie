@@ -5,14 +5,14 @@ import { IconCloudUpload, IconDownload } from "@tabler/icons-react";
 import classes from "../css/upload.module.css";
 import AnimatedText from "./AnimatedText";
 import VideoPlayer from "./videoplayer.tsx";
+import "../src/App.css";
 
 export function DropzoneButton() {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfUrl, setPdfUrl] = useState<string | null>("");
   const [clearPage, setClearPage] = useState(false);
   const [showVideo, setShowVideo] = useState(false); // State to control video display
-  const [uploadStatus, setUploadStatus] =
-    useState<string>("Upload PDF of Book");
+  const [uploadStatus, setUploadStatus] = useState<string>("Upload PDF of Book");
   const theme = useMantineTheme();
   const openRef = useRef<() => void>(null);
   const filePath = "../data/videos/video_with_captions_hatchet.mp4";
@@ -24,7 +24,7 @@ export function DropzoneButton() {
       const url = URL.createObjectURL(file);
       setPdfUrl(url);
       console.log("PDF File Uploaded:", file);
-      setUploadStatus("Book uploaded");
+      setUploadStatus("Book Uploaded");
     } else {
       alert("Please upload a valid PDF file.");
     }
@@ -85,6 +85,7 @@ export function DropzoneButton() {
             radius="md"
             accept={[MIME_TYPES.pdf]}
             maxSize={30 * 1024 ** 2}
+            style={{color:'var(--background-color)'}}
           >
             <div style={{ pointerEvents: "none" }}>
               <Group justify="center">
@@ -103,7 +104,7 @@ export function DropzoneButton() {
                 </Dropzone.Idle>
               </Group>
 
-              <Text ta="center" fw={700} fz="lg" mt="xl">
+              <Text ta="center" fw={700} fz="lg" mt="xl" style={{ color:'var(--background-color)' }}>
                 <Dropzone.Accept>{uploadStatus}</Dropzone.Accept>
                 <Dropzone.Idle>{uploadStatus}</Dropzone.Idle>
               </Text>
