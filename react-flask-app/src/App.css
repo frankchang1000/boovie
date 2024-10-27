@@ -11,9 +11,10 @@
 }
 
 body[data-theme="dark"] {
-  --background-color: #1a1b1e;
+  /* --background-color: #1a1b1e; */
+  --background-color: #121212;
   --text-color: #ffffff;
-  --header-color: #25262b;
+  --header-color: #242424;
   --accent-color: #a0d8ff;
 }
 
@@ -21,7 +22,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
-  padding: 1.5rem 10rem;
+  padding: 0rem 10rem;
   font-family: "Inter", sans-serif;
 }
 

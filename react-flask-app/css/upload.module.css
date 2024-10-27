@@ -2,6 +2,10 @@
   position: relative;
   margin-bottom: rem(30px);
   margin-top: rem(50px);
+  border: rem(1px) solid #9c9c9c4d;
+  padding: rem(20px);
+  border-radius: 20px;
+  background-color: #242424;
 }
 
 .dropzone {
@@ -18,4 +22,8 @@
   width: rem(250px);
   left: calc(50% - rem(125px));
   bottom: rem(-20px);
+}
+
+.white-text {
+  color: white !important; /* Hard coded to white */
 }

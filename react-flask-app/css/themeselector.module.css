@@ -13,6 +13,11 @@
   }
 }
 
+.theme-toggle {
+  background-color: #006239 !important;
+  border: #3ecf8e4d;
+}
+
 .light {
   @mixin light {
     display: none;
