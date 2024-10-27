@@ -94,7 +94,9 @@ One of the most significant challenges we faced was understanding which prompt g
 
 For an example of a failed prompting, see:
 
-<video controls src="https://github.com/frankchang1000/boovie/blob/f07317162e4b3257016df2e66ee924c66989f132/Gen-3%20Alpha%20501733355%2C%20%5BCamera%5D%20Extreme%20cl%2C%20Cropped%20-%20SCR-202410%2C%20M%205.mp4" title="Gen-3 Alpha 501733355, [Camera] Extreme cl, Cropped - SCR-202410, M 5"></video>
+https://user-images.githubusercontent.com/6877923/123006036-64e2e780-d3b7-11eb-922e-018994b32da5.mov
+
+https://github.com/frankchang1000/boovie/blob/f07317162e4b3257016df2e66ee924c66989f132/Gen-3%20Alpha%20501733355%2C%20%5BCamera%5D%20Extreme%20cl%2C%20Cropped%20-%20SCR-202410%2C%20M%205.mp4" 
 
 ## how can we improve? 🤔
 
