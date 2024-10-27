@@ -1,107 +1,79 @@
-# flask app
-from flask_cors import CORS
-from flask import Flask, jsonify, request
-from modules.gemini_interface import make_summary, make_script, pdf_to_text, generate_initial_image
-from modules.runway_interface import generate_video
+from flask import Flask, jsonify, request, send_file
+from modules.gemini_interface import (
+    make_summary, make_script, pdf_to_text, generate_initial_image,
+    generate_captions, create_srt, burn_subtitles
+)
+from modules.runway_interface import generate_videos, stitch_videos
 import asyncio
+import os
+import threading
 
 app = Flask(__name__)
-CORS(app)
-# Upload file to local data/books
-UPLOAD_FOLDER = 'data/books' 
-os.makedirs(UPLOAD_FOLDER, exist_ok=True) 
 
-@app.route('/api/upload', methods=['POST'])
-def upload_file():
+BASE_PATH = "/react-flask-app/data/"
+
+processing_tasks = {}
+
+# Route to handle PDF upload and start processing
+@app.route('/upload_pdf', methods=['POST'])
+def upload_pdf():
     if 'file' not in request.files:
         return jsonify({"error": "No file part"}), 400
+
     file = request.files['file']
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
-    if file and file.filename.endswith('.pdf'):
-        file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-        file.save(file_path)  # Save the uploaded file
-        # Optionally, you can call pdf_to_text or other functions here
-        try:
-            pdf_to_text(file_path)  # Process the uploaded PDF
-            return jsonify({"message": "File uploaded and processed successfully"}), 200
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
-    return jsonify({"error": "Invalid file type"}), 400
 
-@app.route('/api/pdf_to_text', methods=['POST'])
-def api_pdf_to_text():
-    data = request.get_json()
-    file_path = data.get("file_path")
+    if file:
+        # Save the uploaded file
+        file_path = os.path.join(BASE_PATH, "books", file.filename)
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        file.save(file_path)
 
-    if not file_path:
-        return jsonify({"error": "File path missing"}), 400
+        output_filename = f"{os.path.splitext(file.filename)[0]}_captioned_trailer.mp4"
+        output_path = os.path.join(BASE_PATH, output_filename)
 
+        # Start processing in a new thread
+        task_id = file.filename  
+        processing_tasks[task_id] = 'processing'
+
+        threading.Thread(target=process_file, args=(file_path, output_path, task_id)).start()
+
+        return jsonify({"message": "Processing started", "task_id": task_id}), 202
+
+    return jsonify({"error": "Something went wrong"}), 500
+
+def process_file(file_path, output_path, task_id):
     try:
-        pdf_to_text(file_path)
-        return jsonify({"message": "Text extracted and saved to data/text.txt"})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-    
-@app.route('/api/make_summary', methods=['POST'])
-def api_make_summary():
-    data = request.get_json()
-    text = data.get("text")
-
-    if not text:
-        return jsonify({"error": "Text missing"}), 400
-
-    try:
+        text = pdf_to_text(file_path)
         summary = make_summary(text)
-        return jsonify({"summary": summary})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-    
-@app.route('/api/make_script', methods=['POST'])
-def api_make_script():
-    data = request.get_json()
-    summary = data.get("summary")
-
-    if not summary:
-        return jsonify({"error": "Summary missing"}), 400
-
-    try:
         script = make_script(summary)
-        return jsonify({"script": script})
+        videos = asyncio.run(generate_videos(script, os.path.join(BASE_PATH, "images")))
+        trailer = stitch_videos(videos, os.path.join(BASE_PATH, "output.mp4"))
+        captions = generate_captions(script)
+        srt = create_srt(captions)
+        captioned_trailer = burn_subtitles(trailer, srt, output_path)
+        processing_tasks[task_id] = 'completed'
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
-    
-@app.route('/api/generate_initial_image', methods=['POST'])
-def api_generate_initial_image():
-    data = request.get_json()
-    script = data.get("script")
+        processing_tasks[task_id] = f'error: {str(e)}'
+        print(f"Error processing task {task_id}: {e}")
 
-    if not script:
-        return jsonify({"error": "Script missing"}), 400
+# Route to check processing status
+@app.route('/status/<task_id>', methods=['GET'])
+def check_status(task_id):
+    status = processing_tasks.get(task_id, 'not found')
+    return jsonify({"status": status}), 200
 
-    try:
-        image_path = generate_initial_image(script)
-        return jsonify({"image_path": image_path})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-    
+# Route to download the final video
+@app.route('/download/<task_id>', methods=['GET'])
+def download_file(task_id):
+    output_filename = f"{os.path.splitext(task_id)[0]}_captioned_trailer.mp4"
+    output_path = os.path.join(BASE_PATH, output_filename)
 
-@app.route('/api/generate_video', methods=['POST'])
-def api_generate_video():
-    data = request.get_json()
-    prompt_text = data.get("prompt_text")
-    prompt_image = data.get("prompt_image")  # Retrieve the prompt_image from request
+    if os.path.exists(output_path):
+        return send_file(output_path, as_attachment=True)
+    else:
+        return jsonify({"error": "File not found"}), 404
 
-    if not prompt_text or not prompt_image:
-        return jsonify({"error": "Prompt text or prompt image missing"}), 400
-
-    # Run the async function within Flask's synchronous request
-    try:
-        video_id = asyncio.run(generate_video(prompt_text, prompt_image))
-        return jsonify({"video_id": video_id})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-
-
+if __name__ == '__main__':
+    app.run(debug=True)
